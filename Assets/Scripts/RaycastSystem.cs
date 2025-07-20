@@ -21,7 +21,17 @@ public class RaycastSystem : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                StartCoroutine(SphereIndicator(hit.point));
+                GameObject hitObject = hit.transform.gameObject;
+                ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
+                if (target != null)
+                {
+                    target.ReactToHit();
+                }
+                else
+                {
+                    StartCoroutine(SphereIndicator(hit.point));
+                }
+                
             }
         }
     }
